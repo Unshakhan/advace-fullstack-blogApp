@@ -34,7 +34,7 @@ const TEST_EMAIL = process.env.SMTP_USER
 const app = express()
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://advace-fullstack-blog-app-g1tb.vercel.app/'],
+  origin: ['http://localhost:5173', 'https://advace-fullstack-blog-app-g1tb.vercel.app'],
   credentials: true
 }))
 app.use(express.json())
