@@ -34,10 +34,19 @@ const TEST_EMAIL = process.env.SMTP_USER
 const app = express()
 
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'https://advace-fullstack-blog-app-g1tb.vercel.app'
-  ],
+  origin: function(origin, callback) {
+    const allowedOrigins = [
+      'http://localhost:5173',
+      'https://advace-fullstack-blog-app-g1tb.vercel.app',  // production
+    ]
+    // Sare Vercel preview URLs allow karo automatically
+    if (!origin || allowedOrigins.includes(origin) || 
+        /https:\/\/advace-fullstack-blog-app.*\.vercel\.app$/.test(origin)) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
   credentials: true
 }))
 app.use(express.json())
